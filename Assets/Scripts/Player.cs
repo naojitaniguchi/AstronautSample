@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public float forceScale = 0.1f ;
     public float MaxVelocity = 0.1f ;
+    public float angleSpeed = 0.1f;
     private bool mouseDown;
     private Vector3 mouseDownPos;
 
@@ -50,6 +51,15 @@ public class Player : MonoBehaviour
             }
         }
 
+        Vector2 up2D;
+        up2D.x = transform.up.x;
+        up2D.y = transform.up.y;
+        float angle = Vector2.SignedAngle(up2D, gameObject.GetComponent<Rigidbody2D>().velocity);
 
+        if (Mathf.Abs(angle) > 1.0f)
+        {
+            float rotAngle = angle * angleSpeed * Time.deltaTime;
+            gameObject.transform.Rotate(Vector3.forward, rotAngle);
+        }
     }
 }

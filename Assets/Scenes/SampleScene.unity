@@ -595,6 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceScale: 0.1
   MaxVelocity: 0.1
+  angleSpeed: 5
 --- !u!70 &1360834482
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
