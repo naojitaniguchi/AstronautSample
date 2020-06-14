@@ -342,6 +342,8 @@ MonoBehaviour:
   player: {fileID: 1360834478}
   xDistanceMax: 1.5
   yDistanceMax: 2
+  followSpeedRate: 0.8
+  followFrames: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

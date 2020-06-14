@@ -8,6 +8,8 @@ public class PlayerFollow : MonoBehaviour
     public GameObject player;
     public float xDistanceMax = 0.3f;
     public float yDistanceMax = 0.3f;
+    public float followSpeedRate = 0.8f;
+    public float followFrames = 3.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,8 @@ public class PlayerFollow : MonoBehaviour
         float yDistance = player.transform.position.y - gameObject.transform.position.y;
         float xPos = gameObject.transform.position.x;
         float yPos = gameObject.transform.position.y;
-        if (Math.Abs(xDistance) > xDistanceMax)
+        bool moveFlag = false;
+        if (Math.Abs(xDistance) >= xDistanceMax)
         {
             if (xDistance > 0.0f ) {
                 xPos = player.transform.position.x - xDistanceMax;
@@ -30,8 +33,9 @@ public class PlayerFollow : MonoBehaviour
             {
                 xPos = player.transform.position.x + xDistanceMax;
             }
+            moveFlag = true;
         }
-        if (Math.Abs(yDistance) > yDistanceMax)
+        if (Math.Abs(yDistance) >= yDistanceMax)
         {
             if (yDistance > 0.0f)
             {
@@ -41,8 +45,17 @@ public class PlayerFollow : MonoBehaviour
             {
                 yPos = player.transform.position.y + yDistanceMax;
             }
-            
+            moveFlag = true;
         }
-        gameObject.transform.position = new Vector3(xPos, yPos, gameObject.transform.position.z);
+        if ( moveFlag)
+        {
+            Vector3 targetPos = new Vector3(xPos, yPos, gameObject.transform.position.z);
+            Vector3 moveVec = targetPos - gameObject.transform.position;
+            float speed = moveVec.magnitude / followFrames;
+
+            //Debug.Log(speed);
+
+            gameObject.transform.position += moveVec * speed  * Time.deltaTime;
+        }
     }
 }
